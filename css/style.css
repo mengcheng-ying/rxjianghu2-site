@@ -157,7 +157,32 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6);
 }
 .hero-sub{margin-top:4px;font-size:13px;color:rgba(255,255,255,.85);letter-spacing:1px;text-shadow:0 1px 4px rgba(0,0,0,.5)}
-.hero-actions{margin-top:22px;display:flex;justify-content:center;gap:12px}
+.hero-actions{margin-top:22px;display:flex;justify-content:center;gap:12px;width:100%}
+.hero-store{
+  flex:1;max-width:214px;display:flex;align-items:center;gap:12px;
+  padding:12px 16px;border-radius:14px;color:#fff;text-align:left;
+  background:rgba(18,13,9,.55);backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(240,199,94,.35);
+  box-shadow:0 0 0 1px rgba(240,199,94,.06),0 8px 24px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  transition:transform .15s,border-color .2s,box-shadow .2s;
+}
+.hero-store:active{transform:scale(.96)}
+.hero-store.android{border-color:rgba(124,198,93,.5)}
+.hero-store.android:hover{border-color:rgba(124,198,93,.95);box-shadow:0 0 20px rgba(124,198,93,.4),0 8px 24px rgba(0,0,0,.45)}
+.hero-store.ios{border-color:rgba(240,199,94,.5)}
+.hero-store.ios:hover{border-color:rgba(240,199,94,.95);box-shadow:0 0 20px rgba(240,199,94,.4),0 8px 24px rgba(0,0,0,.45)}
+.hs-icon{
+  flex-shrink:0;width:42px;height:42px;border-radius:11px;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+}
+.hs-icon img{width:30px;height:30px;object-fit:contain;display:block}
+.hs-meta{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.hs-meta small{font-size:11px;color:var(--gold-light);letter-spacing:.5px;opacity:.9}
+.hs-meta b{font-size:16px;font-weight:800;letter-spacing:1px}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
   min-width:120px;padding:13px 22px;border-radius:12px;
