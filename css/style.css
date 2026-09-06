@@ -240,10 +240,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* ============ 职业 ============ */
 .class-tabs{
-  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;
+  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px;
 }
 .classtab{
-  width:calc(20% - 6px);min-width:52px;display:flex;flex-direction:column;
+  min-width:0;display:flex;flex-direction:column;
   align-items:center;gap:6px;padding:8px 4px;border-radius:12px;
   transition:.25s;
 }
