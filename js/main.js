@@ -110,68 +110,22 @@
     });
   });
 
-  /* ---------- iOS 企业签名安装触发 ---------- */
-  // manifest 清单与站点同域名（必须 HTTPS），itms-services 协议引导安装
-  function manifestUrl() {
-    var base = location.origin + location.pathname.replace(/\/[^/]*$/, "/");
-    return base + "ios/install.plist";
-  }
-  // 触发苹果企业安装协议
-  function triggerIOSInstall() {
-    location.href = "itms-services://?action=download-manifest&url=" +
-      encodeURIComponent(manifestUrl());
-  }
-  // 构建引导弹窗 DOM
-  function buildGuide() {
-    var d = document.createElement("div");
-    d.className = "ios-guide";
-    d.innerHTML =
-      '<div class="ios-guide-mask"></div>' +
-      '<div class="ios-guide-card" role="dialog" aria-modal="true">' +
-        '<button class="ios-guide-close" type="button" aria-label="关闭">&times;</button>' +
-        '<img class="ios-guide-icon" src="assets/images/icon-role.webp?v=20260906m" alt="iOS">' +
-        '<h3 class="ios-guide-title">苹果安装引导</h3>' +
-        '<ol class="ios-guide-steps">' +
-          '<li>在<span>Safari</span>浏览器中打开本页，点击下方「下载并安装」；若提示「未受信任的企业开发者」，属正常现象，并非失败。</li>' +
-          '<li>前往<span>设置 → 通用 → VPN与设备管理</span>。</li>' +
-          '<li>找到本应用的证书，点击「<span>信任</span>」。</li>' +
-          '<li>信任完成后回到本页，再次点击「下载并安装」，即可自动下载安装包并完成安装。</li>' +
-        '</ol>' +
-        '<button class="ios-guide-btn" type="button" id="iosGuideStart">下载并安装</button>' +
-        '<p class="ios-guide-tip">提示：请务必使用 iPhone 自带的 Safari 浏览器打开官网。</p>' +
-      '</div>';
-    document.body.appendChild(d);
-    return d;
-  }
-  var iosGuide = buildGuide();
-  var guideCard = $(".ios-guide-card", iosGuide);
-  function showGuide(show) {
-    iosGuide.classList.toggle("open", show);
-    document.body.style.overflow = show ? "hidden" : "";
-  }
-  // 关闭
-  $(".ios-guide-mask", iosGuide).addEventListener("click", function () { showGuide(false); });
-  $(".ios-guide-close", iosGuide).addEventListener("click", function () { showGuide(false); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") showGuide(false); });
-  // 开始安装按钮（可重复点击，信任后可再次触发）
-  var guideStart = $("#iosGuideStart", iosGuide);
-  guideStart.addEventListener("click", function () {
-    showGuide(false);
-    triggerIOSInstall();
-  });
-  // 点击下载按钮：iOS 弹引导，其余走原逻辑
+  /* ---------- iOS 下载（第三方分发平台落地页） ---------- */
+  var IOS_URL = "https://uf5.uwanting.com/gr7bt2";
+  // 点击下载按钮：iOS 直接跳转平台落地页，其余走原逻辑
   function iosInstall(e) {
     e.preventDefault();
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
     var isAndroid = /Android/.test(navigator.userAgent);
     if (isIOS) {
-      showGuide(true);
+      // 苹果：第三方分发平台落地页，平台自动处理设备检测、证书信任引导与安装
+      window.location.href = IOS_URL;
     } else if (isAndroid) {
       // 安卓：走 apk 直链
       window.open("https://res-engine-rxyqcy.cyltc.com/package/rx/4510454/promote/4510454_4515285_c866021f3ef54b8bdece6de6a4ae7951.apk?v=1788665710", "_blank");
     } else {
-      // 桌面：打开安装清单
-      window.open(manifestUrl(), "_blank");
+      // 桌面：打开平台落地页
+      window.open(IOS_URL, "_blank");
     }
   }
   var iosBtns = $$(".btn-ios-install, #iosInstall");
