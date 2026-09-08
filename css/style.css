@@ -138,7 +138,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   padding-top:calc(60px + env(safe-area-inset-top));
 }
 .hero-top{padding-top:0;display:flex;flex-direction:column;align-items:center;gap:10px}
-.hero-bottom{display:none} /* 移动端原"hero-bottom"块删除，下载按钮并入顶部 */
+/* 下载按钮块正常显示，紧跟在标题下方一并上移，保持紧凑 */
+.hero-bottom{
+  display:flex;flex-direction:column;align-items:center;
+  margin-top:16px;
+}
 .hero-badge{
   display:inline-block;margin:0 auto 12px;
   padding:5px 14px;border-radius:100px;
