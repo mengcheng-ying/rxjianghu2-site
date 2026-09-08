@@ -130,18 +130,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   pointer-events:none;
 }
 .hero-content{
-  position:absolute;left:0;right:0;
+  position:absolute;inset:0;
   z-index:2;text-align:center;
   display:flex;flex-direction:column;
-  top:0;padding:0 22px;
-  /* 整体上移，集中在屏幕上 1/3 区域，下方留给大背景 */
+  padding:0 22px;
   padding-top:calc(60px + env(safe-area-inset-top));
 }
 .hero-top{padding-top:0;display:flex;flex-direction:column;align-items:center;gap:10px}
-/* 下载按钮块正常显示，紧跟在标题下方一并上移，保持紧凑 */
+/* 下载按钮块：在首屏垂直居中（位于剩余可用区域的中央），不再贴着顶部 */
 .hero-bottom{
   display:flex;flex-direction:column;align-items:center;
-  margin-top:16px;
+  margin:auto 0; /* 上下 auto，实现垂直居中 */
+  padding-bottom:28px;
 }
 .hero-badge{
   display:inline-block;margin:0 auto 12px;
@@ -192,19 +192,33 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .medal-ring{
   flex-shrink:0;width:34px;height:34px;border-radius:10px;
   display:grid;place-items:center;
+  overflow:hidden; /* 防止图标被挤出方块边界 */
   background:linear-gradient(135deg,var(--scarlet),#7a0a1c);
   border:1px solid rgba(240,199,94,.45);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
 }
-.medal-core img{width:18px;height:18px;object-fit:contain;display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
-.medal-tag{font-size:15px;font-weight:800;letter-spacing:1.5px;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.medal-core{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+.medal-core img{
+  width:20px;height:20px;max-width:100%;max-height:100%;
+  object-fit:contain;display:block;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
+}
+.medal-tag{
+  flex:0 1 auto;min-width:0;
+  font-size:15px;font-weight:800;letter-spacing:1.5px;white-space:nowrap;
+  text-shadow:0 1px 2px rgba(0,0,0,.5);
+  overflow:hidden;text-overflow:ellipsis;
+}
 
 /* 移动端：Hero 内容顶部对齐（不分散），下载按钮紧跟标题，整体视觉更紧凑 */
 @media (max-width:700px){
   .hero-actions{max-width:340px;margin-left:auto;margin-right:auto}
   .medal{padding:14px 16px;gap:10px}
   .medal-ring{width:32px;height:32px;border-radius:9px}
-  .medal-core img{width:16px;height:16px}
+  .medal-core img{width:18px;height:18px}
   .medal-tag{font-size:14px;letter-spacing:1px}
 }
 .btn{
@@ -459,7 +473,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .hero{height:100vh;min-height:640px}
   .hero-media{position:absolute;inset:0}
   .hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
-  .hero-content{top:0;bottom:auto;padding-top:calc(84px + env(safe-area-inset-top))}
+  .hero-content{inset:0;padding-top:calc(84px + env(safe-area-inset-top))}
   .hero-shade{height:46%}
   .feature-list{grid-template-columns:repeat(3,1fr);gap:20px}
   .intro-card{max-width:760px;margin:0 auto}
